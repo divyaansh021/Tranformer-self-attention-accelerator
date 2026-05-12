@@ -238,24 +238,6 @@ Five named test cases verified hardware output against the Python fixed-point re
 - Debugging discrepancies between hardware and reference
 - Generating random test cases with `gen_test.py`
 
-```bash
-# Print all 4 pipeline steps for 5 named examples
-python3 python/self_attention.py
-
-# Generate random Q,K,V and matching Verilog testbench
-python3 python/gen_test.py --seed 42 --n 8 --dk 8
-
-# Verify generated testbench (iverilog)
-iverilog -o sim_rand \
-    rtl/lib/register.v rtl/lib/zero_detector.v \
-    rtl/lib/multiplier.v rtl/lib/mux2.v rtl/lib/adder.v \
-    rtl/systolic_pe.v rtl/skew_chain.v \
-    rtl/matmul_ctrl.v rtl/systolic_array.v \
-    rtl/scale.v rtl/scale_ctrl.v \
-    rtl/exp_lut.v rtl/softmax.v rtl/softmax_ctrl.v \
-    rtl/attention_top.v tb_random_test.v && vvp sim_rand
-```
-
 ---
 
 ## Hardware resource estimate
